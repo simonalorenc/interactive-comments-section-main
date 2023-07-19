@@ -1,0 +1,119 @@
+:root{
+    --color-primary: hsl(238, 40%, 52%);
+    --color-delete: hsl(358, 79%, 66%);
+    --color-like: hsl(239, 57%, 85%);
+    --color-name: hsl(212, 24%, 26%);
+    --color-background: hsl(223, 19%, 93%);
+    --color-comment-background: hsl(0, 0%, 100%);
+    --color-text: hsl(231, 9%, 72%);
+}
+
+// ### Primary
+
+// - Moderate blue: hsl(238, 40%, 52%)
+// - Soft Red: hsl(358, 79%, 66%)
+// - Light grayish blue: hsl(239, 57%, 85%)
+// - Pale red: hsl(357, 100%, 86%)
+
+// ### Neutral
+
+// - Dark blue: hsl(212, 24%, 26%)
+// - Grayish Blue: hsl(211, 10%, 45%)
+// - Light gray: hsl(223, 19%, 93%)
+// - Very light gray: hsl(228, 33%, 97%)
+// - White: hsl(0, 0%, 100%)
+
+body{
+    margin: 0;
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.all-comments{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0px;
+}
+
+.comment__with-replies{
+    display: flex;
+    flex-direction: column;
+}
+
+.comment{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 400px;
+    min-height: 100px;
+    background-color: var(--color-comment-background);
+
+    & &__like{
+        width: 30px;
+        height: 70px;
+        background-color: var(--color-background);
+        margin: 15px auto auto 15px;
+    }
+
+    & &__content{
+        width: 100%;
+        min-height: 70px;
+        background-color: pink;
+        margin: 15px;
+    }
+
+    & &__info{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 20px;
+        background-color: green;
+        justify-content: space-between;
+    }
+
+    & &__basic-info{
+        display: flex;
+        flex-direction: row;
+        height: 20px;
+        background-color: yellow;
+    }
+
+    & &__basic-info-logo img{
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    & &__basic-info-name{
+        min-width: 50px;
+        height: 20px;
+        background-color: orange;
+        margin: 0px 5px;
+    }
+
+    & &__basic-info-time{
+        min-width: 50px;
+        height: 20px;
+        background-color: orange;
+        margin: 0px 5px;
+    }
+
+    & &__info-reply{
+        display: flex;
+        justify-content: space-between;
+        width: auto;
+        height: 20px;
+        background-color: orange;
+        gap: 10px;
+    }
+
+    & &__text{
+        width: 100%;
+        min-height: 50px;
+        margin: 10px 10px 0px 0px;
+    }
+}
