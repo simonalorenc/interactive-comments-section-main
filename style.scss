@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
 :root{
     --color-primary: hsl(238, 40%, 52%);
     --color-delete: hsl(358, 79%, 66%);
@@ -5,7 +7,7 @@
     --color-name: hsl(212, 24%, 26%);
     --color-background: hsl(223, 19%, 93%);
     --color-comment-background: hsl(0, 0%, 100%);
-    --color-text: hsl(231, 9%, 72%);
+    --color-text: hsl(230, 5%, 56%);
 }
 
 // ### Primary
@@ -29,14 +31,17 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
 }
 
 .all-comments{
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 50px 0px;
+    margin: 50px 0px 0px 0px;
 }
 
 .comment__with-replies{
@@ -51,54 +56,67 @@ body{
     min-width: 400px;
     min-height: 100px;
     background-color: var(--color-comment-background);
+    border-radius: 5px;
+    margin: 10px 0px;
 
     & &__like{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
         width: 30px;
         height: 70px;
         background-color: var(--color-background);
-        margin: 15px auto auto 15px;
+        margin: 25px auto auto 25px;
+        border-radius: 5px;
+    }
+
+    & &__like-number{
+        color: var(--color-primary);
+        font-weight: 500;
+        font-size: 13px;
     }
 
     & &__content{
         width: 100%;
         min-height: 70px;
-        background-color: pink;
-        margin: 15px;
+        margin: 25px;
     }
 
     & &__info{
         display: flex;
         flex-direction: row;
         width: 100%;
-        height: 20px;
-        background-color: green;
+        height: 30px;
         justify-content: space-between;
+        align-items: center;
     }
 
     & &__basic-info{
         display: flex;
+        align-items: center;
         flex-direction: row;
-        height: 20px;
-        background-color: yellow;
+        height: 30px;
     }
 
     & &__basic-info-logo img{
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
     }
 
     & &__basic-info-name{
         min-width: 50px;
-        height: 20px;
-        background-color: orange;
-        margin: 0px 5px;
+        font-weight: 500;
+        font-size: 14px;
+        margin: 0px 10px;
+        color: var(--color-name);
     }
 
     & &__basic-info-time{
         min-width: 50px;
-        height: 20px;
-        background-color: orange;
+        font-size: 14px;
+        color: var(--color-text);
         margin: 0px 5px;
     }
 
@@ -106,14 +124,63 @@ body{
         display: flex;
         justify-content: space-between;
         width: auto;
-        height: 20px;
-        background-color: orange;
         gap: 10px;
+    }
+
+    & &__info-reply-text{
+        color: var(--color-primary);
+        font-size: 14px;
+        font-weight: 500;
     }
 
     & &__text{
         width: 100%;
         min-height: 50px;
+        font-size: 14px;
+        color: var(--color-text);
         margin: 10px 10px 0px 0px;
+        line-height: 20px;
+    }
+}
+
+.comments__reply-container{
+    margin-left: 80px;
+}
+
+.add-comment{
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.new-comment{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-width: 400px;
+    min-height: 80px;
+    background-color: var(--color-comment-background);
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 25px;
+    gap: 15px;
+
+    & &__logo{
+        background-color: pink;
+        width: 37px;
+        height: 37px;
+    }
+
+    & &__text{
+        min-height: 80px;
+        height: 100%;
+        width: 100%;
+    }
+
+    & &__submit{
+        width: 100px;
+        height: 35px;
     }
 }
