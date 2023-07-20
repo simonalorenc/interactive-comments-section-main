@@ -7,6 +7,7 @@
   --color-background: #eaecf1;
   --color-comment-background: white;
   --color-text: #898b94;
+  --color-border: #c3c6d0;
 }
 
 body {
@@ -161,9 +162,19 @@ body {
   min-height: 80px;
   height: 100%;
   width: 100%;
+  border-radius: 5px;
+  border: solid 1px var(--color-border);
+  padding: 15px;
+  align-items: flex-start;
+  resize: vertical;
 }
 
 .new-comment .new-comment__submit {
   width: 100px;
   height: 35px;
+  color: var(--color-background);
+  background-color: var(--color-primary);
+  border-radius: 5px;
+  border: none;
+  font-weight: 500;
 }

@@ -8,6 +8,7 @@
     --color-background: hsl(223, 19%, 93%);
     --color-comment-background: hsl(0, 0%, 100%);
     --color-text: hsl(230, 5%, 56%);
+    --color-border: hsl(226, 12%, 79%);
 }
 
 // ### Primary
@@ -176,10 +177,20 @@ body{
         min-height: 80px;
         height: 100%;
         width: 100%;
+        border-radius: 5px;
+        border: solid 1px var(--color-border);
+        padding: 15px;
+        align-items: flex-start;
+        resize: vertical;
     }
 
     & &__submit{
         width: 100px;
         height: 35px;
+        color: var(--color-background);
+        background-color: var(--color-primary);
+        border-radius: 5px;
+        border: none;
+        font-weight: 500;
     }
 }

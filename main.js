@@ -111,13 +111,15 @@ function createCurrentUserELement() {
     logoElement.src = './images/avatars/image-juliusomo.png'
     newCommentElement.appendChild(logoElement)
 
-    const textInput = document.createElement('input')
-    textInput.setAttribute('type', 'text')
+    const textInput = document.createElement('textarea')
+    // textInput.setAttribute('type', 'text')
+    textInput.setAttribute('placeholder', 'Add a comment...')
     textInput.classList.add('new-comment__text')
     newCommentElement.appendChild(textInput)
 
     const submitInput = document.createElement('input')
     submitInput.setAttribute('type', 'submit')
     submitInput.classList.add('new-comment__submit')
+    submitInput.value = 'SEND'
     newCommentElement.appendChild(submitInput)
 }
