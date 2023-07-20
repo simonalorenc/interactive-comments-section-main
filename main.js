@@ -1,18 +1,19 @@
-const commentsContainer = document.querySelector('.all-comments');
+const commentsContainer = document.querySelector('.all-comments')
+const addCommentContainer = document.querySelector('.add-comment')
 
 fetch('./data.json')
     .then(res => res.json())
     .then(data => {
+        console.log(data.currentUser.image.png)
+        createCurrentUserELement()
         if (Array.isArray(data.comments)) {
             data.comments.forEach(comment => {
                 const commentElement = createCommentElement(comment);
                 const commentsContainer = document.querySelector('.all-comments')
                 const commentElementWithReplies = document.createElement('div')
                 commentElementWithReplies.classList.add('comment__with-replies')
-                console.log(commentElementWithReplies)
                 commentElementWithReplies.append(commentElement)
                 commentsContainer.append(commentElementWithReplies);
-                console.log(comment.replies)
                 if (Array.isArray(comment.replies)) {
                     const replyContainer = document.createElement('div')
                     replyContainer.classList.add('comments__reply-container')
@@ -98,3 +99,25 @@ function createCommentElement(comment) {
     return commentElement
 }
 
+function createCurrentUserELement() {
+    console.log('created')
+
+    const newCommentElement = document.createElement('div')
+    newCommentElement.classList.add('new-comment')
+    addCommentContainer.appendChild(newCommentElement)
+
+    const logoElement = document.createElement('img')
+    logoElement.classList.add('new-comment__logo')
+    logoElement.src = './images/avatars/image-juliusomo.png'
+    newCommentElement.appendChild(logoElement)
+
+    const textInput = document.createElement('input')
+    textInput.setAttribute('type', 'text')
+    textInput.classList.add('new-comment__text')
+    newCommentElement.appendChild(textInput)
+
+    const submitInput = document.createElement('input')
+    submitInput.setAttribute('type', 'submit')
+    submitInput.classList.add('new-comment__submit')
+    newCommentElement.appendChild(submitInput)
+}
