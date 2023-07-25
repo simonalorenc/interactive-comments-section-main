@@ -20,10 +20,16 @@ function getData() {
                     commentElementWithReplies.appendChild(replyContainer)
                     if (comment.replies !== 0) {
                         comment.replies.forEach(reply => {
+                            const replyContainerNext = document.createElement('div')
+                            replyContainerNext.classList.add('comments__reply-container-next')
                             const replyElement = createCommentElement(reply)
-                            replyContainer.append(replyElement)
+                            replyContainerNext.append(replyElement)
+                            replyContainer.append(replyContainerNext)
+                            const replyContainerForReplies = document.createElement('div')
+                            replyContainerForReplies.classList.add('comments__reply-container')
+                            replyContainerNext.append(replyContainerForReplies)
                         })
-                    }
+                    } 
                 }
             })
         }
@@ -50,7 +56,6 @@ function createCommentElement(comment) {
     const minusElement = document.createElement('img')
     minusElement.src = './images/icon-minus.svg'
     commentLike.appendChild(minusElement)
-    
 
     const commentContent = document.createElement('div')
     commentContent.classList.add('comment__content')
@@ -83,6 +88,7 @@ function createCommentElement(comment) {
 
     const commentReplyElement = document.createElement('div')
     commentReplyElement.classList.add('comment__info-reply')
+    commentReplyElement.setAttribute('data-reply-added', 'false')
     infoElement.appendChild(commentReplyElement)
     const replyImg = document.createElement('img')
     replyImg.src = './images/icon-reply.svg'
@@ -112,7 +118,6 @@ function createCurrentUserELement() {
     newCommentElement.appendChild(logoElement)
 
     const textInput = document.createElement('textarea')
-    // textInput.setAttribute('type', 'text')
     textInput.setAttribute('placeholder', 'Add a comment...')
     textInput.classList.add('new-comment__text')
     newCommentElement.appendChild(textInput)
@@ -122,20 +127,26 @@ function createCurrentUserELement() {
     submitInput.classList.add('new-comment__submit')
     submitInput.value = 'SEND'
     newCommentElement.appendChild(submitInput)
-}
 
-function createReplyElement() {
-    const replyContainer = document.querySelector('.comments__reply-container')
-    console.log(replyContainer)
-    const replyElement = createCurrentUserELement
-    console.log(replyElement)
-    replyContainer.append(replyElement)
+    return newCommentElement
 }
 
 function addReply() {
     const replyBtn = document.querySelectorAll('.comment__info-reply')
-    console.log(replyBtn)
-    replyBtn.forEach(replyComment => replyComment.addEventListener('click',createReplyElement))
+    replyBtn.forEach((replyComment, index) => replyComment.addEventListener('click', () => {
+        const replyAdded = replyComment.getAttribute('data-reply-added');
+        if (replyAdded === 'true') {
+            return;
+        }
+        replyComment.setAttribute('data-reply-added', 'true')
+        const replyContainers = document.querySelectorAll('.comments__reply-container')
+        console.log(replyContainers)
+        const currentReply = createCurrentUserELement()
+        const targetReplyContainer = replyContainers[index]
+        targetReplyContainer.appendChild(currentReply)
+        const submitInput = document.querySelector('.new-comment__submit')
+        submitInput.value = 'REPLY'
+    }))
 }
 
 async function asyncTest() {

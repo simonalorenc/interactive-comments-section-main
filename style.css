@@ -129,6 +129,10 @@ body {
 }
 
 .comments__reply-container {
+  margin-left: 0;
+}
+
+.comments__reply-container-next {
   margin-left: 80px;
 }
 
