@@ -1,10 +1,10 @@
 const commentsContainer = document.querySelector('.all-comments')
 const addCommentContainer = document.querySelector('.add-comment')
 
-fetch('./data.json')
+function getData() {
+    return fetch('./data.json')
     .then(res => res.json())
     .then(data => {
-        console.log(data.currentUser.image.png)
         createCurrentUserELement()
         if (Array.isArray(data.comments)) {
             data.comments.forEach(comment => {
@@ -31,6 +31,7 @@ fetch('./data.json')
     .catch(error => {
         console.error('Error: ', error)
     })
+}
 
 function createCommentElement(comment) {
 
@@ -100,7 +101,6 @@ function createCommentElement(comment) {
 }
 
 function createCurrentUserELement() {
-    console.log('created')
 
     const newCommentElement = document.createElement('div')
     newCommentElement.classList.add('new-comment')
@@ -123,3 +123,25 @@ function createCurrentUserELement() {
     submitInput.value = 'SEND'
     newCommentElement.appendChild(submitInput)
 }
+
+function createReplyElement() {
+    const replyContainer = document.querySelector('.comments__reply-container')
+    console.log(replyContainer)
+    const replyElement = createCurrentUserELement
+    console.log(replyElement)
+    replyContainer.append(replyElement)
+}
+
+function addReply() {
+    const replyBtn = document.querySelectorAll('.comment__info-reply')
+    console.log(replyBtn)
+    replyBtn.forEach(replyComment => replyComment.addEventListener('click',createReplyElement))
+}
+
+async function asyncTest() {
+    await getData()
+    addReply()
+    
+}
+
+asyncTest()

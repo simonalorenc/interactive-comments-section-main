@@ -165,8 +165,8 @@ body {
   border-radius: 5px;
   border: solid 1px var(--color-border);
   padding: 15px;
-  align-items: flex-start;
   resize: vertical;
+  font-family: 'Rubik', sans-serif;
 }
 
 .new-comment .new-comment__submit {
