@@ -5,10 +5,11 @@ function getData() {
     return fetch('./data.json')
     .then(res => res.json())
     .then(data => {
-        createCurrentUserELement()
+        createCurrentUserELement(data.currentUser, addCommentContainer)
         data.comments.forEach(comment => {
             createCommentElement(comment, document.querySelector('.all-comments'), true)
         })
+        addReply(data.currentUser)
         // if (Array.isArray(data.comments)) {
         //     data.comments.forEach(comment => {
         //         const commentElement = createCommentElement(comment);
@@ -105,15 +106,19 @@ function createCommentElement(comment, parentContainer, wantToMakeReplies) {
     commentTextElement.classList.add('comment__text')
     commentContent.appendChild(commentTextElement)
 
+    const repliesParentContainer = document.createElement('div')
+    repliesParentContainer.classList.add('comments__reply-container-shift')
+
     const commentElementWithReplies = document.createElement('div')
     commentElementWithReplies.classList.add('comment__with-replies')
     commentElementWithReplies.append(commentElement)
+    commentElementWithReplies.appendChild(repliesParentContainer)
     parentContainer.append(commentElementWithReplies)
 
     if (wantToMakeReplies) {
-        const repliesParentContainer = document.createElement('div')
-        repliesParentContainer.classList.add('comments__reply-container-shift')
-        commentElementWithReplies.appendChild(repliesParentContainer)
+        // const repliesParentContainer = document.createElement('div')
+        // repliesParentContainer.classList.add('comments__reply-container-shift')
+        // commentElementWithReplies.appendChild(repliesParentContainer)
         comment.replies.forEach(reply => {
             createReply(reply, repliesParentContainer)
         })
@@ -124,14 +129,14 @@ function createReply(reply, parentContainer) {
     createCommentElement(reply, parentContainer, false)
 }
 
-function createCurrentUserELement() {
+function createCurrentUserELement(currentUser, parentContainer) {
     const newCommentElement = document.createElement('div')
     newCommentElement.classList.add('new-comment')
-    addCommentContainer.appendChild(newCommentElement)
+    parentContainer.appendChild(newCommentElement)
 
     const logoElement = document.createElement('img')
     logoElement.classList.add('new-comment__logo')
-    logoElement.src = './images/avatars/image-juliusomo.png'
+    logoElement.src = currentUser.image.png
     newCommentElement.appendChild(logoElement)
 
     const textInput = document.createElement('textarea')
@@ -145,14 +150,29 @@ function createCurrentUserELement() {
     submitInput.value = 'SEND'
     newCommentElement.appendChild(submitInput)
     submitInput.addEventListener('click', () => {
-        console.log(textInput.value)
-        const commentElementWithReplies = document.querySelector('.comment__with-replies')
-        createCommentElement(reply, commentElementWithReplies, false)//co tu przekazac jako pierwszy argument????
+        const reply = {
+            content: textInput.value,
+            createdAt: 'now',
+            score: '0',
+            user: {
+                image: { 
+                  png: currentUser.image.png,
+                  webp: currentUser.image.webp
+                },
+                username: currentUser.username
+              },
+              replies: []
+        }
+        createCommentElement(reply, document.querySelector('.all-comments'), true)
+        addReply(currentUser)
+        console.lo
     })
+    return newCommentElement
 }
 
-function addReply() {
+function addReply(currentUser) {
     const replyBtns = document.querySelectorAll('.comment__info-reply')
+    console.log(replyBtns)
     replyBtns.forEach((replyBtn, index) => replyBtn.addEventListener('click', () => {
         const replyAdded = replyBtn.getAttribute('data-reply-added');
         if (replyAdded === 'true') {
@@ -161,22 +181,18 @@ function addReply() {
         replyBtn.setAttribute('data-reply-added', 'true')
         const replyContainers = document.querySelectorAll('.comments__reply-container-shift')
         console.log(replyContainers)
-        const currentReply = createCurrentUserELement()
         const targetReplyContainer = replyContainers[index]
-        targetReplyContainer.appendChild(currentReply)
+        console.log(index)
+        const currentReply = createCurrentUserELement(currentUser, targetReplyContainer)
         const submitInput = document.querySelector('.new-comment__submit')
         submitInput.value = 'REPLY'
+        targetReplyContainer.appendChild(currentReply)
         const replyActions = document.querySelectorAll('.new-comment__submit')
         replyActions.forEach(replyAction => replyAction.addEventListener('click', () => {
             console.log('add your reply')
             
         }))
     }))
-}
-
-function addComment() {
-    console.log('dsdsd')
-        
 }
 
 async function asyncTest() {
