@@ -32,6 +32,18 @@ export function renderComment(parent, comment) {
     if (isComment) {
         renderReplies(commentWithReplies, comment.replies)
     }
+
+    if (comment.user.username === currentUser.username) {
+        const nameElements = document.querySelectorAll('.comment__basic-info-name')
+        nameElements.forEach(nameElement => {
+            if (nameElement.textContent === currentUser.username) {
+                const currentUserSymbol = document.createElement('div')
+                currentUserSymbol.classList.add('current-user-symbol')
+                currentUserSymbol.innerHTML = 'YOU'
+                nameElement.appendChild(currentUserSymbol)
+            }
+        })
+    }
 }
 
 function renderScore(parent, score) {
@@ -100,6 +112,20 @@ function renderCommentHeader(parent, comment, onReplyClick) {
     // replyElement.setAttribute('data-reply-added', 'false')
     replyElement.addEventListener('click', onReplyClick)
     commentHeader.appendChild(replyElement)
+
+    // if (comment.user.username === 'juliusomo') {
+    //     console.log('ok')
+    //     const currentUserSymbol = document.createElement('div')
+    //     currentUserSymbol.classList.add('current-user-symbol')
+    //     currentUserSymbol.innerHTML = 'YOU'
+    //     console.log(currentUserSymbol)
+
+    //     const commentInfo = document.querySelector('.comment__basic-info')
+    //     console.log(commentInfo)
+    //     const timeElement = document.querySelector('.comment__basic-info-time')
+    //     console.log(timeElement)
+    //     commentInfo.insertBefore(currentUserSymbol, timeElement)
+    // }
 
     const replyImg = document.createElement('img')
     replyImg.src = './images/icon-reply.svg'

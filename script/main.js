@@ -17,7 +17,7 @@ async function main() {
     commentInputSection = document.querySelector('.comment-input-section')
 
     renderComments()
-    renderCommentInput(commentInputSection, true)
+    renderCommentInput(commentInputSection, commentsSection, true)
 }
 
 main()

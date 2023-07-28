@@ -1,5 +1,5 @@
 import {renderComment} from "./comments.js";
-import {commentsSection, currentUser} from "./main.js";
+import {commentsSection, currentUser, comments} from "./main.js";
 
 export function renderCommentInput(parent, commentParent, hasReplies) {
     const inputContainer = document.createElement('div')
@@ -23,6 +23,7 @@ export function renderCommentInput(parent, commentParent, hasReplies) {
     submitInput.addEventListener('click', () => {
         const comment = createComment(textInput.value, hasReplies)
         renderComment(commentParent, comment)
+        console.log(currentUser.username)
         textInput.value = ''
     })
     inputContainer.appendChild(submitInput)

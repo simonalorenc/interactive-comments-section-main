@@ -108,11 +108,13 @@ body{
     }
 
     & &__basic-info-name{
+        display: flex;
         min-width: 50px;
         font-weight: 500;
         font-size: 14px;
         margin: 0px 10px;
         color: var(--color-name);
+        gap: 8px;
     }
 
     & &__basic-info-time{
@@ -202,4 +204,16 @@ body{
         border: none;
         font-weight: 500;
     }
+}
+
+.current-user-symbol{
+    display: flex;
+    align-items: center;    
+    justify-content: center;
+    width: 30px;
+    height: 20px;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    font-size: 12px;
+    border-radius: 5px;
 }

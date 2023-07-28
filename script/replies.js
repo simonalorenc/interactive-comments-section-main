@@ -1,5 +1,5 @@
 import {renderComment} from "./comments.js";
-import {currentUser} from "./main.js";
+import {currentUser, comments} from "./main.js";
 
 export function renderReplies(parent, replies) {
     const repliesContainer = document.createElement('div')
