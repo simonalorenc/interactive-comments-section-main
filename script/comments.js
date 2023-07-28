@@ -41,8 +41,35 @@ export function renderComment(parent, comment) {
                 currentUserSymbol.classList.add('current-user-symbol')
                 currentUserSymbol.innerHTML = 'YOU'
                 nameElement.appendChild(currentUserSymbol)
+                const nameParent = nameElement.parentNode
+                const infoElement = nameParent.parentNode 
+                const replyElement = infoElement.children[1]
+                infoElement.removeChild(replyElement)
+
+                const deleteElement = document.createElement('div')
+                deleteElement.classList.add('delete')
+                const deleteImg = document.createElement('img')
+                deleteImg.src = './images/icon-delete.svg'
+                deleteElement.appendChild(deleteImg)
+                const deleteText = document.createElement('p')
+                deleteText.classList.add('delete__text')
+                deleteText.textContent = 'Delete'
+                deleteElement.appendChild(deleteText)
+                infoElement.appendChild(deleteElement)
+
+                const editElement = document.createElement('div')
+                editElement.classList.add('edit')
+                const editImg = document.createElement('img')
+                editImg.src = './images/icon-edit.svg'
+                editElement.appendChild(editImg)
+                const editText = document.createElement('p')
+                editText.classList.add('edit__text')
+                editText.textContent = 'Edit'
+                editElement.appendChild(editText)
+                infoElement.appendChild(editElement)
             }
         })
+        
     }
 }
 
@@ -112,20 +139,6 @@ function renderCommentHeader(parent, comment, onReplyClick) {
     // replyElement.setAttribute('data-reply-added', 'false')
     replyElement.addEventListener('click', onReplyClick)
     commentHeader.appendChild(replyElement)
-
-    // if (comment.user.username === 'juliusomo') {
-    //     console.log('ok')
-    //     const currentUserSymbol = document.createElement('div')
-    //     currentUserSymbol.classList.add('current-user-symbol')
-    //     currentUserSymbol.innerHTML = 'YOU'
-    //     console.log(currentUserSymbol)
-
-    //     const commentInfo = document.querySelector('.comment__basic-info')
-    //     console.log(commentInfo)
-    //     const timeElement = document.querySelector('.comment__basic-info-time')
-    //     console.log(timeElement)
-    //     commentInfo.insertBefore(currentUserSymbol, timeElement)
-    // }
 
     const replyImg = document.createElement('img')
     replyImg.src = './images/icon-reply.svg'

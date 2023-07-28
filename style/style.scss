@@ -214,6 +214,42 @@ body{
     height: 20px;
     background-color: var(--color-primary);
     color: var(--color-background);
-    font-size: 12px;
+    font-size: 11px;
     border-radius: 5px;
+}
+
+.delete{
+    display: flex;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+
+    & &__text{
+        color: var(--color-delete);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    img {
+        height: 13px;
+    }
+}
+
+.edit{
+    display: flex;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+
+    & &__text{
+        color: var(--color-primary);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    img{
+        height: 13px;
+    }
 }
