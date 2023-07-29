@@ -37,36 +37,9 @@ export function renderComment(parent, comment) {
         const nameElements = document.querySelectorAll('.comment__basic-info-name')
         nameElements.forEach(nameElement => {
             if (nameElement.textContent === currentUser.username) {
-                const currentUserSymbol = document.createElement('div')
-                currentUserSymbol.classList.add('current-user-symbol')
-                currentUserSymbol.innerHTML = 'YOU'
-                nameElement.appendChild(currentUserSymbol)
-                const nameParent = nameElement.parentNode
-                const infoElement = nameParent.parentNode 
-                const replyElement = infoElement.children[1]
-                infoElement.removeChild(replyElement)
-
-                const deleteElement = document.createElement('div')
-                deleteElement.classList.add('delete')
-                const deleteImg = document.createElement('img')
-                deleteImg.src = './images/icon-delete.svg'
-                deleteElement.appendChild(deleteImg)
-                const deleteText = document.createElement('p')
-                deleteText.classList.add('delete__text')
-                deleteText.textContent = 'Delete'
-                deleteElement.appendChild(deleteText)
-                infoElement.appendChild(deleteElement)
-
-                const editElement = document.createElement('div')
-                editElement.classList.add('edit')
-                const editImg = document.createElement('img')
-                editImg.src = './images/icon-edit.svg'
-                editElement.appendChild(editImg)
-                const editText = document.createElement('p')
-                editText.classList.add('edit__text')
-                editText.textContent = 'Edit'
-                editElement.appendChild(editText)
-                infoElement.appendChild(editElement)
+                createUserSymbol(nameElement)
+                renderDeleteElement(nameElement.parentNode.parentNode)
+                renderEditElement(nameElement.parentNode.parentNode)
             }
         })
         
@@ -147,4 +120,60 @@ function renderCommentHeader(parent, comment, onReplyClick) {
     replyText.classList.add('comment__info-reply-text')
     replyText.textContent = 'Reply'
     replyElement.appendChild(replyText)
+}
+
+function createUserSymbol(nameElement) {
+    const currentUserSymbol = document.createElement('div')
+    currentUserSymbol.classList.add('current-user-symbol')
+    currentUserSymbol.innerHTML = 'YOU'
+    nameElement.appendChild(currentUserSymbol)
+    const nameParent = nameElement.parentNode
+    const infoElement = nameParent.parentNode 
+    const replyElement = infoElement.children[1]
+    infoElement.removeChild(replyElement)
+}
+
+function renderDeleteElement(infoElement) {
+    const deleteElement = document.createElement('div')
+    deleteElement.classList.add('delete')
+    const deleteImg = document.createElement('img')
+    deleteImg.src = './images/icon-delete.svg'
+    deleteElement.appendChild(deleteImg)
+    const deleteText = document.createElement('p')
+    deleteText.classList.add('delete__text')
+    deleteText.textContent = 'Delete'
+    deleteElement.appendChild(deleteText)
+    infoElement.appendChild(deleteElement)
+        deleteElement.addEventListener('click', () => {
+            const commentContent = infoElement.parentNode
+            const commentToDelete = commentContent.parentNode
+            commentToDelete.parentNode.removeChild(commentToDelete)
+        })
+}
+
+function renderEditElement(infoElement) {
+    const editElement = document.createElement('div')
+    editElement.classList.add('edit')
+    const editImg = document.createElement('img')
+    editImg.src = './images/icon-edit.svg'
+    editElement.appendChild(editImg)
+    const editText = document.createElement('p')
+    editText.classList.add('edit__text')
+    editText.textContent = 'Edit'
+    editElement.appendChild(editText)
+    infoElement.appendChild(editElement)
+        editElement.addEventListener('click', () => {
+            const commentContent = infoElement.parentNode
+            const commentText = commentContent.children[1]
+            const comment = commentContent.parentNode
+            renderCommentInput(comment.parentNode, comment.parentNode, false) 
+            const textInput = document.querySelector('.new-comment__text')
+            textInput.value = commentText.textContent
+            comment.parentNode.removeChild(comment)
+            const newComment = document.querySelector('.new-comment')
+            const newCommentSubmits = document.querySelectorAll('.new-comment__submit')
+            newCommentSubmits.forEach(newCommentSubmit => newCommentSubmit.addEventListener('click', () => {
+                newComment.parentNode.removeChild(newComment)
+            }))
+        })
 }
