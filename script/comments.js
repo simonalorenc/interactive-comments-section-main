@@ -43,7 +43,6 @@ export function renderComment(parent, comment) {
             }
         }) 
     }
-    return commentContainer
 }
 
 function renderScore(parent, score) {
@@ -133,7 +132,7 @@ function createUserSymbol(nameElement) {
     infoElement.removeChild(replyElement)
 }
 
-function renderDeleteElement(infoElement) {
+export function renderDeleteElement(infoElement) {
     const deleteElement = document.createElement('div')
     deleteElement.classList.add('delete')
     const deleteImg = document.createElement('img')
@@ -147,11 +146,13 @@ function renderDeleteElement(infoElement) {
         deleteElement.addEventListener('click', () => {
             const commentContent = infoElement.parentNode
             const commentToDelete = commentContent.parentNode
+            console.log(commentToDelete)
             commentToDelete.parentNode.removeChild(commentToDelete)
+            localStorage.removeItem('comments')
         })
 }
 
-function renderEditElement(infoElement) {
+export function renderEditElement(infoElement) {
     const editElement = document.createElement('div')
     editElement.classList.add('edit')
     const editImg = document.createElement('img')

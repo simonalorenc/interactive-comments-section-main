@@ -1,5 +1,5 @@
 import {renderComment} from "./comments.js";
-import {commentsSection, currentUser, comments} from "./main.js";
+import {commentsSection, currentUser, comments, storedComments} from "./main.js";
 
 export function renderCommentInput(parent, commentParent, hasReplies) {
     const inputContainer = document.createElement('div')
@@ -20,29 +20,15 @@ export function renderCommentInput(parent, commentParent, hasReplies) {
     submitInput.setAttribute('type', 'submit')
     submitInput.classList.add('new-comment__submit')
     submitInput.value = 'SEND'
-    let storedComments = []
     submitInput.addEventListener('click', () => {
         const comment = createComment(textInput.value, hasReplies)
-        const newComment = renderComment(commentParent, comment)
-        storedComments.push(newComment)
-        console.log(storedComments)
+        renderComment(commentParent, comment)
         textInput.value = ''
 
-        const commentsData = Array.from(storedComments).map(oneComment => oneComment.outerHTML)
-        localStorage.setItem('comments', JSON.stringify(commentsData))
+        storedComments.push(comment)
+        localStorage.setItem('comments', JSON.stringify(storedComments))
     })
     inputContainer.appendChild(submitInput)
-
-    const addedComments = localStorage.getItem('comments')
-    if (addedComments) {
-        const commentsData = JSON.parse(addedComments)
-        commentsData.forEach(commentData => {
-            const commentElement = document.createElement('div')
-            commentElement.classList.add('comment__with-replies')
-            commentElement.innerHTML = commentData
-            commentsSection.appendChild(commentElement)
-        })
-    }
 }
 
 function createComment(content, hasReplies) {
