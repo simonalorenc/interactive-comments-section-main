@@ -41,9 +41,9 @@ export function renderComment(parent, comment) {
                 renderDeleteElement(nameElement.parentNode.parentNode)
                 renderEditElement(nameElement.parentNode.parentNode)
             }
-        })
-        
+        }) 
     }
+    return commentContainer
 }
 
 function renderScore(parent, score) {

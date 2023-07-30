@@ -20,13 +20,29 @@ export function renderCommentInput(parent, commentParent, hasReplies) {
     submitInput.setAttribute('type', 'submit')
     submitInput.classList.add('new-comment__submit')
     submitInput.value = 'SEND'
+    let storedComments = []
     submitInput.addEventListener('click', () => {
         const comment = createComment(textInput.value, hasReplies)
-        renderComment(commentParent, comment)
-        console.log(currentUser.username)
+        const newComment = renderComment(commentParent, comment)
+        storedComments.push(newComment)
+        console.log(storedComments)
         textInput.value = ''
+
+        const commentsData = Array.from(storedComments).map(oneComment => oneComment.outerHTML)
+        localStorage.setItem('comments', JSON.stringify(commentsData))
     })
     inputContainer.appendChild(submitInput)
+
+    const addedComments = localStorage.getItem('comments')
+    if (addedComments) {
+        const commentsData = JSON.parse(addedComments)
+        commentsData.forEach(commentData => {
+            const commentElement = document.createElement('div')
+            commentElement.classList.add('comment__with-replies')
+            commentElement.innerHTML = commentData
+            commentsSection.appendChild(commentElement)
+        })
+    }
 }
 
 function createComment(content, hasReplies) {
