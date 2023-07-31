@@ -1,11 +1,15 @@
 import {renderReplies} from "./replies.js";
 import {renderCommentInput} from "./comment_input.js";
-import {comments, commentsSection, currentUser} from "./main.js";
+import {comments, commentsSection, currentUser, storedComments} from "./main.js";
 
 export function renderComments() {
     comments.forEach(comment => {
         renderComment(commentsSection, comment)
     })
+    // const commentsWithReplies = document.querySelectorAll('.comment__with-replies')
+    // commentsWithReplies.forEach((commentWithReplies, index) => {
+    //     commentWithReplies.setAttribute('data-id', index)
+    // })
 }
 
 export function renderComment(parent, comment) {
@@ -43,6 +47,7 @@ export function renderComment(parent, comment) {
             }
         }) 
     }
+    return commentWithReplies
 }
 
 function renderScore(parent, score) {
@@ -146,9 +151,15 @@ export function renderDeleteElement(infoElement) {
         deleteElement.addEventListener('click', () => {
             const commentContent = infoElement.parentNode
             const commentToDelete = commentContent.parentNode
-            console.log(commentToDelete)
+            const textInput = commentContent.children[1]
             commentToDelete.parentNode.removeChild(commentToDelete)
-            localStorage.removeItem('comments')
+
+            let newStoredComments = storedComments.map(storedComent => storedComent.content)
+            const indexToRemove = newStoredComments.indexOf(textInput.innerHTML)
+            console.log(indexToRemove)
+
+            storedComments.splice(indexToRemove, 1)
+            localStorage.setItem('comments', JSON.stringify(storedComments))
         })
 }
 

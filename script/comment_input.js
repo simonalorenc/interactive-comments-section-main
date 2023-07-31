@@ -24,7 +24,6 @@ export function renderCommentInput(parent, commentParent, hasReplies) {
         const comment = createComment(textInput.value, hasReplies)
         renderComment(commentParent, comment)
         textInput.value = ''
-
         storedComments.push(comment)
         localStorage.setItem('comments', JSON.stringify(storedComments))
     })
