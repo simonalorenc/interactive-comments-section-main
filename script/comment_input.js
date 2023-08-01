@@ -1,6 +1,8 @@
 import {renderComment} from "./comments.js";
 import {commentsSection, currentUser, comments, storedComments} from "./main.js";
 
+let i = 0
+
 export function renderCommentInput(parent, commentParent, hasReplies) {
     const inputContainer = document.createElement('div')
     inputContainer.classList.add('new-comment')
@@ -22,8 +24,13 @@ export function renderCommentInput(parent, commentParent, hasReplies) {
     submitInput.value = 'SEND'
     submitInput.addEventListener('click', () => {
         const comment = createComment(textInput.value, hasReplies)
-        renderComment(commentParent, comment)
+        const newComment = renderComment(commentParent, comment)
+        console.log(renderComment(commentParent, comment))
+        newComment.setAttribute('data-id', i+1)
+        i++
         textInput.value = ''
+
+
         storedComments.push(comment)
         localStorage.setItem('comments', JSON.stringify(storedComments))
     })
